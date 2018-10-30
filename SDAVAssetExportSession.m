@@ -31,6 +31,7 @@
 
 @implementation SDAVAssetExportSession
 {
+    BOOL isCancelled;
     NSError *_error;
     NSTimeInterval duration;
     CMTime lastSamplePresentationTime;
@@ -56,6 +57,7 @@
 {
     NSParameterAssert(handler != nil);
     [self cancelExport];
+    isCancelled = NO;
     self.completionHandler = handler;
 
     if (!self.outputURL)
@@ -254,7 +256,7 @@
                     handled = YES;
                 }
             }
-            if (!handled && ![input appendSampleBuffer:sampleBuffer])
+            if (!isCancelled && !handled && ![input appendSampleBuffer:sampleBuffer])
             {
                 error = YES;
             }
@@ -427,6 +429,7 @@
 
 - (void)cancelExport
 {
+    isCancelled = YES;
     if (self.inputQueue)
     {
         dispatch_async(self.inputQueue, ^
