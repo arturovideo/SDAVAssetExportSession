@@ -10,7 +10,8 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/arturovideo/SDAVAssetExportSession"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author    = "Olivier Poitrey"
-  s.platform     =  { :ios => "6.0", :osx => "10.11" }
+  s.ios.deployment_target = '6.0'
+  s.osx.deployment_target = '10.11'
   s.source       = { :git => "https://github.com/arturovideo/SDAVAssetExportSession.git" }
   s.source_files  = "**/*.{h,m}"
   s.requires_arc = true
